@@ -2774,7 +2774,8 @@ local Analyse = function(BasePart: BasePart)
 			FOV.CastShadow = Configuration.FOVShadows
 			FOV.CustomPhysicalProperties = PhysicalProperties.new(0.0001,0,0,0,0)
 			
-			local _Aimpart = FOV.Parent.Parent:FindFirstChild(Configuration.AimPart, true)
+            if (FOV.Parent.Parent) then
+                local _Aimpart = FOV.Parent.Parent:FindFirstChild(Configuration.AimPart, true)
 			if _Aimpart then
 				if (_Aimpart:IsA("BasePart")) then
 					FOV.CFrame = _Aimpart.CFrame
@@ -2784,6 +2785,10 @@ local Analyse = function(BasePart: BasePart)
 				FOV.CFrame = BasePart.CFrame
 				FOV.Parent = BasePart
 			end
+            else
+            FOV.CFrame = BasePart.CFrame
+				FOV.Parent = BasePart
+            end
 		end)
 	end
 end
