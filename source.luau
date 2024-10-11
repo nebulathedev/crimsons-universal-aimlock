@@ -1,3 +1,8 @@
+local __loc = game.CoreGui
+if (game:GetService("RunService"):IsStudio()) then
+__loc = game:GetService("Players").LocalPlayer.PlayerGui
+end
+
 local Kavo = {}
 
 local tween = game:GetService("TweenService")
@@ -140,10 +145,10 @@ end)
 local LibName = tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
 
 function Kavo:ToggleUI()
-	if game:GetService("Players").LocalPlayer.PlayerGui[LibName].Enabled then
-		game:GetService("Players").LocalPlayer.PlayerGui[LibName].Enabled = false
+	if __loc[LibName].Enabled then
+		__loc[LibName].Enabled = false
 	else
-		game:GetService("Players").LocalPlayer.PlayerGui[LibName].Enabled = true
+		__loc[LibName].Enabled = true
 	end
 end
 
@@ -187,7 +192,7 @@ function Kavo.CreateLib(kavName, themeList)
 	local selectedTab 
 	kavName = kavName or "Library"
 	table.insert(Kavo, kavName)
-	for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui:GetChildren()) do
+	for i,v in pairs(__loc:GetChildren()) do
 		if v:IsA("ScreenGui") and v.Name == kavName then
 			v:Destroy()
 		end
@@ -222,7 +227,7 @@ function Kavo.CreateLib(kavName, themeList)
 	blurFrame.Size = UDim2.new(0, 376, 0, 289)
 	blurFrame.ZIndex = 999
 
-	ScreenGui.Parent = game:GetService("Players").LocalPlayer.PlayerGui
+	ScreenGui.Parent = __loc
 	ScreenGui.Name = LibName
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	ScreenGui.ResetOnSpawn = false
